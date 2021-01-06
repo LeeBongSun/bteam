@@ -1,0 +1,5 @@
+index.html -> memberLogin.me -> web.xml(*.me) -> MemberFrontController.java(Servlet)
+-> member/memberLogin.jsp(JSP)(로그인 화면) -> memberJoin.me -> web.xml(*.me)
+-> MemberFrontController.java(Servlet) -> member/joinForm.jsp(회원가입 화면)
+-> memberJoinAction.me -> web.xml(*.me) -> MemberFrontController.java(Servlet)
+->

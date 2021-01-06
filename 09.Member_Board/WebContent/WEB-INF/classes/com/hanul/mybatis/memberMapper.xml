@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hanul.mybatis.boardMemberMapper.xml">
+	<!-- SQL 문장 작성 -->
+	<!-- 
+		<insert | delete | update | select ~~~>
+			- id 속성(식별자) : DAO에서 설정한 값
+			        ▶ session.insert("boardMemberInsert", dto);
+			- parameterType 속성 : 매개변수 타입(Class, PDT) ▶ 생략가능
+			- 매개변수 처리 : dto.getName() → #{속성명}
+			- SQL문장 마지막에 세미콜론(;)은 입력하지 않는다
+			- resultType 속성 : select 쿼리를 수행했을 때 결과 타입
+	-->
+	
+	<select id="getAllMember" resultType="MemberDTO">
+		select * from boardMember order by member_id
+	</select>
+	
+	<select id="isMember" parameterType="MemberDTO" resultType="MemberDTO">
+		select * from boardMember 
+			where member_id= #{member_id}
+	</select>
+	
+	<insert id="joinMember" parameterType="MemberDTO">
+		insert into boardMember
+			 values(#{member_id}, 
+			 		#{member_pw}, 
+			 		#{member_name}, 
+			 		#{member_age}, 
+			 		#{member_gender}, 
+			 		#{member_email} 
+			 		)
+	</insert>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from boardMember where member_id = #{member_id}
+	</delete>
+	
+	<select id="memberDetail" parameterType="String" resultType="MemberDTO">
+		select * from boardMember where member_id= #{member_id}
+	</select>
+	
+	<update id="memberUpdate" parameterType="MemberDTO">
+		update boardMember
+		set 
+			member_pw		= #{member_pw},
+			member_name		= #{member_name},
+			member_age		= #{member_age},
+			member_gender	= #{member_gender},
+			member_email	= #{member_email}
+		where member_id = #{member_id}
+	</update>
+	
+	<select id="memberSearch" parameterType="SearchDTO" resultType="MemberDTO">
+		select * from boardMember where upper(${part}) like upper(#{searchData})
+			 order by member_id
+	</select>
+	
+</mapper>
